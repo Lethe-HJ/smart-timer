@@ -1,5 +1,5 @@
 module.exports = class Timer {
-  constructor({ times = Number.POSITIVE_INFINITY, cover = true } = {}) {
+  constructor({ times = Infinity, cover = true } = {}) {
     // 默认覆盖
     this.cover = cover
     this.timer = null
@@ -17,7 +17,7 @@ module.exports = class Timer {
   }
 
   set times(times) {
-    if (!Number.isInteger(times) || times <= 0) {
+    if ((!Number.isInteger(times) && times !== Infinity) || times <= 0) {
       throw TypeError('times must be an integer greater than 0 !')
     }
     this._times = times
