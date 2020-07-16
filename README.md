@@ -24,7 +24,7 @@ const delaySayHelloTimer1 = timer1.getTimer(delaySayHello, 3000)
 如果你不想第一次执行有延时的话,可以这样
 
 ```js
-const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)`
+const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)
 ```
 
 如果不小心调用了同一个实例的getTimer,并不会累积两个定时器
@@ -46,8 +46,24 @@ const delaySayHelloTimer2 = timer1.getTimer(delaySayHelloWorld(), 3000)
 const timer1 = new Timer({cover=false})
 ```
 
-`cover=false` 
-不会新建新的定时器而是直接返回旧定时器
+> `cover=false` 时 第二次调用getTimer不会新建新的定时器而是直接返回
+> 旧定时器,而且传入的参数会被直接忽略,并予以警告提示
+> 当然,如果没有传入参数,那么就不会提示警告
+
+你可以通过`timer1.clearTimer()`来清除timer1实例对象的timer
+也可以通过`Timer.clearAllTimer()` 来一次性清除Timer的所有实例中的timer
+
+如果你想指定定时器触发的次数，可以这么做
+
+```js
+const timer1 = new Timer({times=3 ,cover=false})
+timer1.getTimer(delaySayHello, 3000)
+```
+
+这样这个定时器只会执行delaySayHello三次(如果你传入的是一个函数的调用，那么这次自执行不算在这三次之内)
+你也可以在getTimer的时候改变这个执行的次数
+
+`timer1.getTimer(delaySayHello, 3000, 4)` 
 
 ## 示例
 
@@ -118,3 +134,5 @@ setTimeout(()=>{timer4.continue()}, 5000)// 五秒后继续
 setTimeout(()=>{timer5.pause()}, 2000)
 setTimeout(()=>{timer5.continue()}, 6000)
 ```
+
+// 
