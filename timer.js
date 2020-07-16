@@ -1,5 +1,5 @@
-export default class Timer {
-  constructor(once=false, cover=true) { // 默认覆盖
+class Timer {
+  constructor({once=false, cover=true} = {}) { // 默认覆盖
     this.once = once // 是timeout 还是interval
     this.cover = cover
     this.Timer = null
@@ -35,7 +35,7 @@ export default class Timer {
     this.Timer = null
   }
 
-  getTimer(func, seconds, cover=true) {
+  getTimer(func, seconds) {
     if(!this.Timer) { // 如果该实例没有timer 直接新建timer
       return this.newTimer(func, seconds);
     }
@@ -56,3 +56,6 @@ export default class Timer {
     return this.newTimer(this.func, this.seconds)
   }
 }
+
+
+export {Timer};
