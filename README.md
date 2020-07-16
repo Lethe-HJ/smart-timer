@@ -1,6 +1,6 @@
 ## 简介
 
-`smartTimer`对js的`settimeInterval`和`settimeout`进行了封装
+`smartTimer`对js的`setInterval`进行了封装,你完全可以使用它代替`setInterval`和`setTimeOut`.好用到爆
 
 ## 功能
 
