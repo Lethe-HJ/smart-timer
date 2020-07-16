@@ -136,7 +136,6 @@ setTimeout(()=>{timer4.continue()}, 5000)// 五秒后继续
 // 通过暂停继续延迟4秒
 setTimeout(()=>{timer5.pause()}, 2000)
 setTimeout(()=>{timer5.continue()}, 6000)
-<<<<<<< HEAD
 
 // 3 执行特定次数
 
@@ -145,9 +144,3 @@ timer6.getTimer(delaySayHello, 3000)
 
 
 ```
-
-=======
-```
-
-// 
->>>>>>> 77d372f1b4ef72642b604f8f6b044aa343b3fd59
