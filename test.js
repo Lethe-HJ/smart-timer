@@ -1,17 +1,21 @@
-import {Timer} from './timer';
+const Timer = require('./timer')
 
 const delaySayHello = () => {
   console.log("hello1 " + (new Date()).getTime())
   return delaySayHello
 }
 
-const delaySayHelloWorld = ()=>{
-  console.log("hello world " + (new Date()).getTime())
-  return delaySayHelloWorld
-}
+// const delaySayHelloWorld = ()=>{
+//   console.log("hello world " + (new Date()).getTime())
+//   return delaySayHelloWorld
+// }
 
-let time = 1
-setInterval(()=>{console.log(time++)}, 1000)
+let time = 0
+let timeCount = () => {
+  console.log(time++) 
+  return timeCount
+}
+setInterval(timeCount(), 1000)
 
 
 // // 测试1 单timer
@@ -41,6 +45,13 @@ setInterval(()=>{console.log(time++)}, 1000)
 // const time = 0
 // setInterval(()=>{console.log(time++)}, 1000)
 
+// 测试1.5 不覆盖
+const timer1 = new Timer({times: 2, cover:false})
+
+timer1.getTimer(delaySayHello, 3000, 3)
+// timer1.getTimer(delaySayHello, 3000)
+// timer1.getTimer()
+
 // // 测试2 多timer
 
 // // 测试2.1 清除所有实例中的timer
@@ -67,5 +78,5 @@ setInterval(()=>{console.log(time++)}, 1000)
 // setTimeout(()=>{timer5.continue()}, 6000)
 
 
-const timer6 = new Timer({once:true})
-timer1.getTimer(delaySayHello, 2000)
+// const timer6 = new Timer({once:true})
+// timer6.getTimer(delaySayHello, 2000)

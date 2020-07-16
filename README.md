@@ -24,11 +24,11 @@ const delaySayHelloTimer1 = timer1.getTimer(delaySayHello, 3000)
 如果你不想第一次执行有延时的话,可以这样
 
 ```js
-const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)`
+const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)
 ```
 
-如果不小心调用了同一个实例的getTimer,并不会累积两个定时器
-默认情况下是删除这个实例之前的旧的定时器,新建新的定时器
+> 如果不小心调用了同一个实例的getTimer,并不会累积两个定时器
+> 默认情况下是删除这个实例之前的旧的定时器,新建新的定时器
 
 ```js
 const delaySayHelloWorld = ()=>{
@@ -40,14 +40,33 @@ const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)
 const delaySayHelloTimer2 = timer1.getTimer(delaySayHelloWorld(), 3000)
 ```
 
-你可以在实例化的时候,传入`cover=false`,改变这一行为
+> 你可以在实例化的时候,传入`cover=false`,改变这一行为
 
 ```js
 const timer1 = new Timer({cover=false})
 ```
 
-`cover=false` 
-不会新建新的定时器而是直接返回旧定时器
+> `cover=false` 时 第二次调用getTimer不会新建新的定时器而是直接返回
+> 旧定时器,而且传入的参数会被直接忽略,并予以警告提示
+> 当然,如果没有传入参数,那么就不会提示警告
+
+> 你可以通过`timer1.clearTimer()`来清除timer1实例对象的timer
+> 也可以通过`Timer.clearAllTimer()` 来一次性清除Timer的所有实例中的timer
+
+如果你想指定定时器触发的次数，可以这么做
+
+```js
+const timer1 = new Timer({times=3 ,cover=false})
+timer1.getTimer(delaySayHello, 3000)
+```
+
+> 这样这个定时器只会执行delaySayHello三次(如果你传入的是一个函数的调用，那么这次自执行不算在这三次之内)
+> 如果设置次数为1, 是不是感觉就是setTimeOut了,对 我们以后抛弃setTimeOut吧
+> 你需要的仅仅是`new Timer().getTimer(delaySayHello, 3000, 1)`
+
+你也可以在getTimer的时候改变这个执行的次数
+
+`timer1.getTimer(delaySayHello, 3000, 4)` 
 
 ## 示例
 
@@ -67,7 +86,7 @@ setInterval(()=>{console.log(time++)}, 1000)
 
 
 // 1.单timer
-timer1 = new Timer()
+const timer1 = new Timer()
 
 // 1.1 不延时
 const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)
@@ -96,17 +115,17 @@ setInterval(()=>{console.log(time++)}, 1000)
 // 2. 多timer
 
 // 2.1 清除所有实例中的timer
-timer2 = new Timer()
+const = new Timer()
 const delaySayHelloTimer8 = timer2.getTimer(delaySayHelloWorld, 3000)
 
-timer3 = new Timer()
+const = new Timer()
 const delaySayHelloTimer8 = timer3.getTimer(delaySayHello, 3000)
 Timer.clearAllTimer() // 清除Timer的所有实例中的timer
 
 
 // 2.2 暂停 继续
-timer4 = new Timer()
-timer5 = new Timer()
+const timer4 = new Timer()
+const timer5 = new Timer()
 const  delaySayHelloTimer10 = timer4.getTimer(delaySayHello, 5000)
 const  delaySayHelloTimer11 = timer5.getTimer(delaySayHelloWorld, 10000)
 
@@ -117,4 +136,12 @@ setTimeout(()=>{timer4.continue()}, 5000)// 五秒后继续
 // 通过暂停继续延迟4秒
 setTimeout(()=>{timer5.pause()}, 2000)
 setTimeout(()=>{timer5.continue()}, 6000)
+
+// 3 执行特定次数
+
+const timer6 = new Timer({times:1})
+timer6.getTimer(delaySayHello, 3000)
+
+
 ```
+
