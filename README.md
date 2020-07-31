@@ -1,3 +1,5 @@
+# smart-timer
+
 ## 简介
 
 `smartTimer`对js的`setInterval`进行了封装,你完全可以使用它代替`setInterval`和`setTimeOut`.好用到爆
@@ -49,7 +51,6 @@ const timer1 = new Timer({cover=false})
 > `cover=false` 时 第二次调用getTimer不会新建新的定时器而是直接返回
 > 旧定时器,而且传入的参数会被直接忽略,并予以警告提示
 > 当然,如果没有传入参数,那么就不会提示警告
-
 > 你可以通过`timer1.clearTimer()`来清除timer1实例对象的timer
 > 也可以通过`Timer.clearAllTimer()` 来一次性清除Timer的所有实例中的timer
 
@@ -141,6 +142,4 @@ setTimeout(()=>{timer5.continue()}, 6000)
 
 const timer6 = new Timer({times:1})
 timer6.getTimer(delaySayHello, 3000)
-
-
 ```
