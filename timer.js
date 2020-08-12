@@ -3,6 +3,7 @@ class Timer {
     // 默认覆盖
     this.cover = cover;
     this.timer = null;
+    this.startTime = null;
     if (!Timer.instances) {
       // 初始化instances静态属性
       Timer.instances = [this];
@@ -47,6 +48,7 @@ class Timer {
       func();
       this.count += 1;
     }, seconds);
+    this.startTime = new Date().getTime();
     Timer.instances.push(this);
     return this.timer;
   }
@@ -66,7 +68,7 @@ class Timer {
       // 如果this.cover=true 则删除原有timer,新建timer
       this.clearTimer(this.timer);
       this.priNewTimer(func, seconds, times);
-    } else if (func || seconds || times) {
+    } else if (arguments.length !== 0) {
       // this.cover=false 则提示警告 参数将被忽略
       console.warn('args will be ignored because cover is false');
     }
@@ -75,12 +77,20 @@ class Timer {
 
   pause() {
     if (this.timer) {
+      this.pauseTimerId = this.timer
       this.clearTimer();
     }
+    this.pauseTime = new Date().getTime()
   }
 
   continue() {
-    return this.priNewTimer(this.func, this.seconds, this.times);
+    const restTime = this.seconds - (this.pauseTime - this.startTime)
+    // console.log(this.pauseTime - this.startTime)
+    setTimeout(() => {
+      this.func()
+      this.startTime = new Date().getTime()
+      this.priNewTimer(this.func, this.seconds, this.times);
+    }, restTime);
   }
 }
 

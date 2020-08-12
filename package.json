@@ -1,0 +1,29 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-jest": "^26.2.2",
+    "jest": "^24.8.0",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "name": "smart-timer",
+  "description": "## 简介",
+  "version": "1.0.0",
+  "main": "test.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lethe-HJ/smart-timer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lethe-HJ/smart-timer/issues"
+  },
+  "homepage": "https://github.com/Lethe-HJ/smart-timer#readme",
+  "dependencies": {
+    "eslint": "^7.6.0"
+  }
+}
