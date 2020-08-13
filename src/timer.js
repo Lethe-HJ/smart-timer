@@ -25,17 +25,11 @@ class Timer {
   }
 
   static clearAllTimer() {
+    if(Timer.instances === undefined) return false
     Timer.instances.forEach((element) => {
       element.clearTimer();
     });
-  }
-
-  // 重新设置定时器的配置信息 需要先清除定时器 否则设置无效
-  setTimer({ times = this.times, cover = this.cover } = {}) {
-    if (this.timer == null) return false;
-    this.cover = cover;
-    this.times = times;
-    return true;
+    return true
   }
 
   priNewTimer(func, seconds, times = this.times) {
@@ -76,11 +70,11 @@ class Timer {
   }
 
   pause() {
+    this.pauseTime = new Date().getTime()
     if (this.timer) {
       this.pauseTimerId = this.timer
       this.clearTimer();
     }
-    this.pauseTime = new Date().getTime()
   }
 
   continue() {
