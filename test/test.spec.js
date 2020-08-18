@@ -1,6 +1,5 @@
 import Timer from '../src/timer'
 import { realCalledAround, fnExecuteTime, setSyncTimerOut } from './utils/util'
-import { async } from 'regenerator-runtime'
 
 beforeAll(() => {
   // 设置jest的异步回调超时时间为10秒
@@ -22,6 +21,8 @@ describe('覆盖模式+无限模式', ()=> {
     const timer = new Timer({})
     const fn = jest.fn();
     timer.getTimer(fn, 3000)
+    // 断言第一次调用是在第三秒
+    // 3000-1时调用次数0 3000+1调用次数1
     realCalledAround(3000, fn, 1).then(res => {
       expect(res).toEqual({start: 0, end: 1})
     })
@@ -34,12 +35,12 @@ describe('覆盖模式+无限模式', ()=> {
     /*覆盖模式下 后续gettimer会覆盖掉前面的gettimer，
     即删除掉前面的gettimer生成定时器，重新生成新的定时器*/
     // 断言fn第一次被调用是在第6秒
+    // 6000-1时调用次数0 6000+1调用次数1
     await realCalledAround(6000, fn, 1).then(res => {
       expect(res).toEqual({start: 0, end: 1})
     }) // 阻塞 直到这个promise resolved
     expect(first).not.toEqual(second)
   })
-  // test('[定时器只运行指定次数]')
 })
 
 describe('继承模式+无限模式', ()=> {
@@ -47,6 +48,8 @@ describe('继承模式+无限模式', ()=> {
     const timer = new Timer({cover:false})
     const fn = jest.fn();
     timer.getTimer(fn, 3000)
+    // 断言fn第一次被调用是在第3秒
+    // 3000-1时调用次数0 3000+1调用次数1
     realCalledAround(3000, fn, 1).then(res => {
       expect(res).toEqual({start: 0, end: 1})
     })
@@ -69,9 +72,6 @@ describe('继承模式+无限模式', ()=> {
     expect(first).toEqual(second)
     // console.log(fnExecuteTime(20000, fn, 1))
   })
-  // test('[Timer指定次数]', normalTest1({times:3}))
-
-
 })
 
 test('[Timer暂停与继续]', async () => {

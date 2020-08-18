@@ -6,9 +6,18 @@
 
 ## 功能
 
+### 现有功能
+
 + 对象初始化为实例后，该实例下只能有一个定时器
 + 在该实例下新建定时器会自动覆盖或者直接返回原先的定时器
 + 可以暂停或继续运行定时器实例
++ 可以指定定时器执行的次数，当次数为1时就是setTimeOut
++ 支持定时器的全局销毁
+
+### 即将到来
+
++ 同步定时器
+  为什么要它，它可以帮你做延时等待，帮你阻塞代码
 
 ## 使用方法
 
@@ -27,6 +36,21 @@ const delaySayHelloTimer1 = timer1.getTimer(delaySayHello, 3000)
 
 ```js
 const delaySayHelloTimer1 = timer1.getTimer(delaySayHello(), 3000)
+```
+
+传参
+
+```js
+const delaySayHello = (word) => {
+  const sayHello = (world) => {
+    console.log("hello1 " + word + (new Date()).getTime())
+  }
+  return sayHello
+}
+
+const timer1 = new Timer()
+
+const delaySayHelloTimer1 = timer1.getTimer(delaySayHello("world"), 3000)
 ```
 
 > 如果不小心调用了同一个实例的getTimer,并不会累积两个定时器

@@ -1,4 +1,4 @@
-class Timer {
+export default class Timer {
   constructor({ times = Infinity, cover = true } = {}) {
     // 默认覆盖
     this.cover = cover;
@@ -25,11 +25,11 @@ class Timer {
   }
 
   static clearAllTimer() {
-    if(Timer.instances === undefined) return false
+    if (Timer.instances === undefined) return false;
     Timer.instances.forEach((element) => {
       element.clearTimer();
     });
-    return true
+    return true;
   }
 
   priNewTimer(func, seconds, times = this.times) {
@@ -70,23 +70,21 @@ class Timer {
   }
 
   pause() {
-    this.pauseTime = new Date().getTime()
+    this.pauseTime = new Date().getTime();
     if (this.timer) {
-      this.pauseTimerId = this.timer
+      this.pauseTimerId = this.timer;
       this.clearTimer();
     }
   }
 
   continue() {
-    const restTime = this.seconds - (this.pauseTime - this.startTime)
+    const restTime = this.seconds - (this.pauseTime - this.startTime);
     // console.log(this.pauseTime - this.startTime)
     setTimeout(() => {
-      this.func()
-      this.startTime = new Date().getTime()
+      this.func();
+      this.startTime = new Date().getTime();
       this.priNewTimer(this.func, this.seconds, this.times);
     }, restTime);
   }
 }
 
-// export default Timer // ES6
-module.exports = Timer
